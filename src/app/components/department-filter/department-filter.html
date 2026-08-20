@@ -1,0 +1,9 @@
+<div class="filters">
+  @for (department of departments; track department) {
+    <button
+      [class.active]="employeeService.selectedDepartment() === department"
+      (click)="employeeService.toggleDepartment(department)">
+      {{ department }}
+    </button>
+  }
+</div>

@@ -1,0 +1,37 @@
+<div class="card" appHighlight [class.inactive]="!employee().isActive">
+  @let deptColor =
+    employee().department === 'Engineering'
+      ? '#4338ca'
+      : employee().department === 'Design'
+        ? '#b45309'
+        : employee().department === 'Product'
+          ? '#047857'
+          : '#6b7280';
+
+  @let borderColor = !employee().isActive ? '#d1d5db' : deptColor;
+
+  <button (click)="onToggleFavorite($event)" class="favorite-btn">
+    @if (isFavorite()) {
+      ⭐
+    } @else {
+      ☆
+    }
+  </button>
+
+  <img
+    [src]="employee().avatarUrl"
+    [alt]="employee().name"
+    [style.border]="'3px solid ' + borderColor"
+    [appTooltip]="employee().role"
+  />
+  <h3>{{ employee().name }}</h3>
+  <p>{{ employee().role }}</p>
+
+  <span class="badge" [style.background]="deptColor + '20'" [style.color]="deptColor">
+    {{ employee().department | departmentLabel }}
+  </span>
+
+  <span class="status">{{ employee().isActive | activeStatus }}</span>
+
+  <button (click)="remove()">Remove</button>
+</div>

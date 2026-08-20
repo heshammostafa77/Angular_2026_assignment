@@ -1,0 +1,17 @@
+
+<app-department-filter />
+<br/>
+<br/>
+<input type="text" placeholder="Search employees..." [value]="searchTerm()"
+(input)="searchTerm.set($any($event.target).value)" />
+<button (click)="addTestEmployee()">Add Test Employee</button>
+<section class="grid">
+  @for (employee of filteredEmployees(); track employee.id) {
+    <app-employee-card
+  [employee]="employee"
+  [isFavorite]="favoriteIds().has(employee.id)"
+  (select)="onSelect(employee)"
+  (toggleFavorite)="onToggleFavorite(employee)"
+/>
+  }
+</section>
