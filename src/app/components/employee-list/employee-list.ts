@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { EmployeeCard } from '../employee-card/employee-card';
 import { EmployeeService } from '../../services/employee';
 import { DepartmentFilter } from '../department-filter/department-filter';
+import { Employee } from '../../models/employee.model';
 
 @Component({
   selector: 'app-employee-list',
@@ -14,6 +15,10 @@ export class EmployeeList {
   employees = this.employeeService.employees;
 
   favoriteIds = signal<Set<number>>(new Set())
+
+  onSelect(employee: Employee) {
+  console.log('selected:', employee);
+}
 
   addTestEmployee() {
     console.log('Adding test employee...');
