@@ -1,27 +1,29 @@
 @if (notifications.message(); as msg) {
   <div class="toast">{{ msg }}</div>
 }
+
+<button (click)="jumpToFavorites()">⭐ Jump to Favorites</button>
+
 <app-panel title="Team Directory">
-<app-department-filter />
-<br />
-<br />
-<input
-  type="text"
-  placeholder="Search employees..."
-  [value]="searchTerm()"
-  (input)="searchTerm.set($any($event.target).value)"
-/>
-<button (click)="addTestEmployee()">Add Test Employee</button>
-<section class="grid">
-  @for (employee of filteredEmployees(); track employee.id) {
-    <app-employee-card
-      [employee]="employee"
-      [isFavorite]="favoriteIds().has(employee.id)"
-      (select)="onSelect(employee)"
-      (toggleFavorite)="onToggleFavorite(employee)"
-    />
-  }
-</section>
+  <app-department-filter />
+  <br /><br />
+  <input
+    type="text"
+    placeholder="Search employees..."
+    [value]="searchTerm()"
+    (input)="searchTerm.set($any($event.target).value)"
+  />
+  <button (click)="addTestEmployee()">Add Test Employee</button>
+  <section class="grid">
+    @for (employee of filteredEmployees(); track employee.id) {
+      <app-employee-card
+        [employee]="employee"
+        [isFavorite]="favoriteIds().has(employee.id)"
+        (select)="onSelect(employee)"
+        (toggleFavorite)="onToggleFavorite(employee)"
+      />
+    }
+  </section>
 </app-panel>
 
 @if (selectedEmployee(); as employee) {
@@ -29,3 +31,20 @@
     <app-employee-detail [employee]="employee" />
   </app-panel>
 }
+
+<div #favoritesSection>
+  <app-panel title="Favorites">
+    <section class="grid">
+      @for (employee of favoriteEmployees(); track employee.id) {
+        <app-employee-card
+          [employee]="employee"
+          [isFavorite]="true"
+          (select)="onSelect(employee)"
+          (toggleFavorite)="onToggleFavorite(employee)"
+        />
+      } @empty {
+        <p>No favorites yet — click a star to add one.</p>
+      }
+    </section>
+  </app-panel>
+</div>

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { EmployeeCard } from '../employee-card/employee-card';
 import { EmployeeService } from '../../services/employee';
 import { DepartmentFilter } from '../department-filter/department-filter';
@@ -20,6 +20,14 @@ export class EmployeeList {
   selectedEmployee = signal<Employee | null>(null);
   favoriteIds = this.employeeService.favoriteIds;
   notifications = inject(NotificationService);
+  favoriteEmployees = computed(() =>
+    this.employees().filter((employee) => this.favoriteIds().has(employee.id)),
+  );
+    favoritesSection = viewChild<ElementRef<HTMLElement>>('favoritesSection');
+
+  jumpToFavorites() {
+    this.favoritesSection()?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
 
   onSelect(employee: Employee) {
     this.selectedEmployee.set(employee);
