@@ -13,9 +13,7 @@ import { Employee } from '../../models/employee.model';
 export class EmployeeList {
   private employeeService = inject(EmployeeService);
   employees = this.employeeService.employees;
-
-  favoriteIds = signal<Set<number>>(new Set());
-  favoriteCount = computed(() => this.favoriteIds().size);
+  favoriteIds = this.employeeService.favoriteIds;
 
   onSelect(employee: Employee) {
     console.log('selected:', employee);
