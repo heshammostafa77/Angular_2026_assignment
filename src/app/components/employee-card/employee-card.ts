@@ -26,8 +26,9 @@ export class EmployeeCard {
   }
 
   
-remove(): void {
-  this.employeeService.removeEmployee(this.employee().id);
+removeClick(event: Event): void {
+  event.stopPropagation();
+  this.remove();
 }
 
 }

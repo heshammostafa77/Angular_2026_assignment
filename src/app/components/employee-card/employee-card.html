@@ -1,4 +1,4 @@
-<div class="card" appHighlight [class.inactive]="!employee().isActive">
+<div class="card" appHighlight [class.inactive]="!employee().isActive " (click)="select.emit(employee())">
   @let deptColor =
     employee().department === 'Engineering'
       ? '#4338ca'
@@ -33,5 +33,5 @@
 
   <span class="status">{{ employee().isActive | activeStatus }}</span>
 
-  <button (click)="remove()">Remove</button>
+  <button (click)="removeClick($event)">Remove</button>
 </div>

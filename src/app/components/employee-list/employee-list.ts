@@ -3,10 +3,11 @@ import { EmployeeCard } from '../employee-card/employee-card';
 import { EmployeeService } from '../../services/employee';
 import { DepartmentFilter } from '../department-filter/department-filter';
 import { Employee } from '../../models/employee.model';
+import { Panel } from '../panel/panel';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [EmployeeCard, DepartmentFilter],
+  imports: [EmployeeCard, DepartmentFilter,Panel],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.scss',
 })
