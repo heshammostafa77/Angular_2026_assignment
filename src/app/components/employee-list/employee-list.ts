@@ -14,11 +14,12 @@ export class EmployeeList {
   private employeeService = inject(EmployeeService);
   employees = this.employeeService.employees;
 
-  favoriteIds = signal<Set<number>>(new Set())
+  favoriteIds = signal<Set<number>>(new Set());
+  favoriteCount = computed(() => this.favoriteIds().size);
 
   onSelect(employee: Employee) {
-  console.log('selected:', employee);
-}
+    console.log('selected:', employee);
+  }
 
   addTestEmployee() {
     console.log('Adding test employee...');
@@ -35,13 +36,7 @@ export class EmployeeList {
   }
 
   onToggleFavorite(employee: Employee) {
-    const updated = new Set(this.favoriteIds());
-    if (updated.has(employee.id)) {
-      updated.delete(employee.id);
-    } else {
-      updated.add(employee.id);
-    }
-    this.favoriteIds.set(updated);
+    this.employeeService.toggleFavoriteId(employee.id);
   }
 
   searchTerm = signal('');

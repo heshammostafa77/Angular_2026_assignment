@@ -8,7 +8,7 @@ import { EmployeeService } from "./services/employee";
   template: `
   <header>
     <h1> Team Hub</h1>
-    <p>{{activeCount()}} active users</p>
+    <p>{{ activeCount() }} active users · ⭐ {{ favoriteCount() }} favorites</p>
   </header>
   <main>
     <app-employee-list/>
@@ -22,4 +22,5 @@ export class App{
   private employeeService=inject(EmployeeService);
   employees=this.employeeService.employees;
   activeCount = computed(() => this.employees().filter(e => e.isActive).length);
+  favoriteCount = this.employeeService.favoriteCount;
 }

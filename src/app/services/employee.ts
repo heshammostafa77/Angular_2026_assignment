@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Employee } from '../models/employee.model';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class EmployeeService {
   //   return this.employees.asReadonly();
   // }
   selectedDepartment = signal<string | null>(null);
-  
+
   addEmployee(employee: Employee): void {
     this.employees.update((employees) => [...employees, employee]);
   }
@@ -46,5 +46,18 @@ export class EmployeeService {
   }
   toggleDepartment(department: string): void {
     this.selectedDepartment.update((current) => (current === department ? null : department));
+  }
+
+  favoriteIds = signal<Set<number>>(new Set());
+  favoriteCount = computed(() => this.favoriteIds().size);
+
+  toggleFavoriteId(id: number): void {
+    const updated = new Set(this.favoriteIds());
+    if (updated.has(id)) {
+      updated.delete(id);
+    } else {
+      updated.add(id);
+    }
+    this.favoriteIds.set(updated);
   }
 }
