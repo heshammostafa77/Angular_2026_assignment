@@ -18,6 +18,7 @@ export class EmployeeCard {
   isFavorite = input<boolean>(false);
 
   select = output<Employee>();
+
   toggleFavorite = output<Employee>();
 
   onToggleFavorite(event: Event) {

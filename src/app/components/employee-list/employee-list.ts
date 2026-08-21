@@ -21,7 +21,7 @@ export class EmployeeList {
   favoriteIds = this.employeeService.favoriteIds;
   notifications = inject(NotificationService);
   favoriteEmployees = computed(() =>
-    this.employees().filter((employee) => this.favoriteIds().has(employee.id)),
+    this.employees().filter((employee) => this.favoriteIds().includes(employee.id)),
   );
     favoritesSection = viewChild<ElementRef<HTMLElement>>('favoritesSection');
 
@@ -48,7 +48,7 @@ export class EmployeeList {
   }
 
   onToggleFavorite(employee: Employee) {
-    const wasFavorite = this.favoriteIds().has(employee.id);
+    const wasFavorite = this.favoriteIds().includes(employee.id);
     this.employeeService.toggleFavoriteId(employee.id);
 
     if (wasFavorite) {

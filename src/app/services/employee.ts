@@ -48,16 +48,26 @@ export class EmployeeService {
     this.selectedDepartment.update((current) => (current === department ? null : department));
   }
 
-  favoriteIds = signal<Set<number>>(new Set());
-  favoriteCount = computed(() => this.favoriteIds().size);
+  //favoriteIds = signal<Set<number>>(new Set());
+  favoriteIds = signal<number[]>([]);
+  favoriteCount = computed(() => this.favoriteIds().length);
 
   toggleFavoriteId(id: number): void {
-    const updated = new Set(this.favoriteIds());
-    if (updated.has(id)) {
-      updated.delete(id);
+    const current = this.favoriteIds();
+    if (current.includes(id)) {
+      this.favoriteIds.set(current.filter((x) => x !== id));
     } else {
-      updated.add(id);
+      this.favoriteIds.set([...current, id]);
     }
-    this.favoriteIds.set(updated);
   }
+
+  // toggleFavoriteId(id: number): void {
+  //   const updated = new Set(this.favoriteIds());
+  //   if (updated.has(id)) {
+  //     updated.delete(id);
+  //   } else {
+  //     updated.add(id);
+  //   }
+  //   this.favoriteIds.set(updated);
+  // }
 }

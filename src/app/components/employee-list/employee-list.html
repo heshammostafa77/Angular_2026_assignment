@@ -18,7 +18,7 @@
     @for (employee of filteredEmployees(); track employee.id) {
       <app-employee-card
         [employee]="employee"
-        [isFavorite]="favoriteIds().has(employee.id)"
+        [isFavorite]="favoriteIds().includes(employee.id)"
         (select)="onSelect(employee)"
         (toggleFavorite)="onToggleFavorite(employee)"
       />
