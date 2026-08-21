@@ -1,4 +1,4 @@
-<app-panel title="Team Directory"></app-panel>
+<app-panel title="Team Directory">
 <app-department-filter />
 <br />
 <br />
@@ -19,3 +19,10 @@
     />
   }
 </section>
+</app-panel>
+
+@if (selectedEmployee(); as employee) {
+  <app-panel title="Employee Details">
+    <app-employee-detail [employee]="employee" />
+  </app-panel>
+}

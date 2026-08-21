@@ -7,7 +7,7 @@ import { Tooltip } from '../../directives/tooltip';
 import { ActiveStatus } from '../../pipes/active-status-pipe';
 @Component({
   selector: 'app-employee-card',
-  imports: [Highlight, DepartmentLabelPipe,Tooltip,ActiveStatus],
+  imports: [Highlight, DepartmentLabelPipe, Tooltip, ActiveStatus],
   templateUrl: './employee-card.html',
   styleUrl: './employee-card.scss',
 })
@@ -25,10 +25,12 @@ export class EmployeeCard {
     this.toggleFavorite.emit(this.employee());
   }
 
-  
-removeClick(event: Event): void {
-  event.stopPropagation();
-  this.remove();
-}
+  remove(): void {
+    this.employeeService.removeEmployee(this.employee().id);
+  }
 
+  removeClick(event: Event): void {
+    event.stopPropagation();
+    this.remove();
+  }
 }

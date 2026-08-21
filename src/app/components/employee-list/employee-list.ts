@@ -4,21 +4,23 @@ import { EmployeeService } from '../../services/employee';
 import { DepartmentFilter } from '../department-filter/department-filter';
 import { Employee } from '../../models/employee.model';
 import { Panel } from '../panel/panel';
+import { EmployeeDetail } from '../employee-detail/employee-detail';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [EmployeeCard, DepartmentFilter,Panel],
+  imports: [EmployeeCard, DepartmentFilter,Panel,EmployeeDetail],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.scss',
 })
 export class EmployeeList {
   private employeeService = inject(EmployeeService);
   employees = this.employeeService.employees;
+  selectedEmployee = signal<Employee | null>(null);
   favoriteIds = this.employeeService.favoriteIds;
 
   onSelect(employee: Employee) {
-    console.log('selected:', employee);
-  }
+  this.selectedEmployee.set(employee);
+}
 
   addTestEmployee() {
     console.log('Adding test employee...');

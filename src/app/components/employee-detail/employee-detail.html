@@ -1,0 +1,6 @@
+<div class="detail">
+  <img [src]="employee.avatarUrl" [alt]="employee.name" class="detail-avatar" />
+  <h2>{{ employee.name }}</h2>
+  <p>{{ employee.role }} — {{ employee.department }}</p>
+  <span class="status">{{ employee.isActive | activeStatus }}</span>
+</div>
