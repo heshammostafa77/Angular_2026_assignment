@@ -1,3 +1,6 @@
+@if (notifications.message(); as msg) {
+  <div class="toast">{{ msg }}</div>
+}
 <app-panel title="Team Directory">
 <app-department-filter />
 <br />

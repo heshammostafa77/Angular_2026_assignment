@@ -5,22 +5,25 @@ import { DepartmentFilter } from '../department-filter/department-filter';
 import { Employee } from '../../models/employee.model';
 import { Panel } from '../panel/panel';
 import { EmployeeDetail } from '../employee-detail/employee-detail';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [EmployeeCard, DepartmentFilter,Panel,EmployeeDetail],
+  imports: [EmployeeCard, DepartmentFilter, Panel, EmployeeDetail],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.scss',
+  providers: [NotificationService],
 })
 export class EmployeeList {
   private employeeService = inject(EmployeeService);
   employees = this.employeeService.employees;
   selectedEmployee = signal<Employee | null>(null);
   favoriteIds = this.employeeService.favoriteIds;
+  notifications = inject(NotificationService);
 
   onSelect(employee: Employee) {
-  this.selectedEmployee.set(employee);
-}
+    this.selectedEmployee.set(employee);
+  }
 
   addTestEmployee() {
     console.log('Adding test employee...');
@@ -37,7 +40,14 @@ export class EmployeeList {
   }
 
   onToggleFavorite(employee: Employee) {
+    const wasFavorite = this.favoriteIds().has(employee.id);
     this.employeeService.toggleFavoriteId(employee.id);
+
+    if (wasFavorite) {
+      this.notifications.show(`${employee.name} removed from favorites`);
+    } else {
+      this.notifications.show(`⭐ ${employee.name} added to favorites`);
+    }
   }
 
   searchTerm = signal('');
