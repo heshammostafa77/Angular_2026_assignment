@@ -1,8 +1,11 @@
-<div class="filters">
+<div class="flex gap-2 flex-wrap">
   @for (department of departments; track department) {
     <button
-      [class.active]="employeeService.selectedDepartment() === department"
-      (click)="employeeService.toggleDepartment(department)">
+      [class]="employeeService.selectedDepartment() === department
+        ? 'px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-600 text-white'
+        : 'px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200'"
+      (click)="employeeService.toggleDepartment(department)"
+    >
       {{ department }}
     </button>
   }

@@ -1,50 +1,69 @@
 @if (notifications.message(); as msg) {
-  <div class="toast">{{ msg }}</div>
+  <div class="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+    {{ msg }}
+  </div>
 }
 
-<button (click)="jumpToFavorites()">⭐ Jump to Favorites</button>
+<div class="max-w-6xl mx-auto p-6 space-y-6">
+  <button
+    (click)="jumpToFavorites()"
+    class="px-4 py-2 bg-amber-100 text-amber-800 rounded-lg font-medium hover:bg-amber-200 transition-colors"
+  >
+    ⭐ Jump to Favorites
+  </button>
 
-<app-panel title="Team Directory">
-  <app-department-filter />
-  <br /><br />
-  <input
-    type="text"
-    placeholder="Search employees..."
-    [value]="searchTerm()"
-    (input)="searchTerm.set($any($event.target).value)"
-  />
-  <button (click)="addTestEmployee()">Add Test Employee</button>
-  <section class="grid">
-    @for (employee of filteredEmployees(); track employee.id) {
-      <app-employee-card
-        [employee]="employee"
-        [isFavorite]="favoriteIds().includes(employee.id)"
-        (select)="onSelect(employee)"
-        (toggleFavorite)="onToggleFavorite(employee)"
+  <app-panel title="Team Directory">
+    <div class="flex flex-col gap-4">
+      <app-department-filter />
+
+      <input
+        type="text"
+        placeholder="Search employees..."
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+        class="w-full max-w-sm px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder:text-gray-400"
       />
-    }
-  </section>
-</app-panel>
 
-@if (selectedEmployee(); as employee) {
-  <app-panel title="Employee Details">
-    <app-employee-detail [employee]="employee" />
-  </app-panel>
-}
+      <button
+        (click)="addTestEmployee()"
+        class="self-start px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+      >
+        + Add Test Employee
+      </button>
 
-<div #favoritesSection>
-  <app-panel title="Favorites">
-    <section class="grid">
-      @for (employee of favoriteEmployees(); track employee.id) {
-        <app-employee-card
-          [employee]="employee"
-          [isFavorite]="true"
-          (select)="onSelect(employee)"
-          (toggleFavorite)="onToggleFavorite(employee)"
-        />
-      } @empty {
-        <p>No favorites yet — click a star to add one.</p>
-      }
-    </section>
+      <section class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
+        @for (employee of filteredEmployees(); track employee.id) {
+          <app-employee-card
+            [employee]="employee"
+            [isFavorite]="favoriteIds().includes(employee.id)"
+            (select)="onSelect(employee)"
+            (toggleFavorite)="onToggleFavorite(employee)"
+          />
+        }
+      </section>
+    </div>
   </app-panel>
+
+  @if (selectedEmployee(); as employee) {
+    <app-panel title="Employee Details">
+      <app-employee-detail [employee]="employee" />
+    </app-panel>
+  }
+
+  <div #favoritesSection>
+    <app-panel title="Favorites">
+      <section class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
+        @for (employee of favoriteEmployees(); track employee.id) {
+          <app-employee-card
+            [employee]="employee"
+            [isFavorite]="true"
+            (select)="onSelect(employee)"
+            (toggleFavorite)="onToggleFavorite(employee)"
+          />
+        } @empty {
+          <p class="text-gray-400 italic">No favorites yet — click a star to add one.</p>
+        }
+      </section>
+    </app-panel>
+  </div>
 </div>

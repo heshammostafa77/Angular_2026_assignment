@@ -7,11 +7,12 @@ import { Panel } from '../panel/panel';
 import { EmployeeDetail } from '../employee-detail/employee-detail';
 import { NotificationService } from '../../services/notification';
 
+
 @Component({
   selector: 'app-employee-list',
   imports: [EmployeeCard, DepartmentFilter, Panel, EmployeeDetail],
   templateUrl: './employee-list.html',
-  styleUrl: './employee-list.scss',
+  //styleUrl: './employee-list.scss',
   providers: [NotificationService],
 })
 export class EmployeeList {

@@ -4,7 +4,7 @@ import { EmployeeService } from '../../services/employee';
 @Component({
   selector: 'app-department-filter',
   templateUrl: './department-filter.html',
-  styleUrl: './department-filter.scss',
+  //styleUrl: './department-filter.scss',
 })
 export class DepartmentFilter {
   employeeService = inject(EmployeeService);
